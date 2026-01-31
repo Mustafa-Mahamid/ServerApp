@@ -2,9 +2,10 @@ const sqlite3 = require("sqlite3").verbose();
 const path = require("path");
 const fs = require("fs");
 
-const dbPath =
-  process.env.DB_PATH ||
-  (process.env.RENDER ? "/tmp/db.sqlite" : path.join(__dirname, "..", "db.sqlite"));
+// On Render Free: use /tmp (writable). Locally: project folder.
+const dbPath = process.env.RENDER
+  ? "/tmp/db.sqlite"
+  : path.join(__dirname, "..", "db.sqlite");
 
 fs.mkdirSync(path.dirname(dbPath), { recursive: true });
 
